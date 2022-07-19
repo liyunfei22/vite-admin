@@ -9,7 +9,7 @@ import {
 
 // 404 on a page
 export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
-  path: '/:path(.*)*',
+  path: '/:path(.*)*', // 正则匹配
   name: PAGE_NOT_FOUND_NAME,
   component: LAYOUT,
   meta: {

@@ -3,7 +3,7 @@ import { getThemeVariables } from 'ant-design-vue/dist/theme';
 import { resolve } from 'path';
 
 /**
- * less global variable
+ * less 全局变量
  */
 export function generateModifyVars(dark = false) {
   const palettes = generateAntColors(primaryColor);

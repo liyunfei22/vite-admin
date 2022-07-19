@@ -32,9 +32,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   const isBuild = command === 'build';
 
   return {
-    base: VITE_PUBLIC_PATH,
-    root,
+    base: VITE_PUBLIC_PATH, // 开发或生产环境服务的公共基础路径 1.绝对 URL 路径名，例如 /foo/ 2.完整的 URL，例如 https://foo.com/ 3.空字符串或 ./（用于开发环境）
+    root, // 项目根目录（index.html 文件所在的位置）
     resolve: {
+      // 当使用文件系统路径的别名时，请始终使用绝对路径。相对路径的别名值会原封不动地被使用，因此无法被正常解析。
       alias: [
         {
           find: 'vue-i18n',
@@ -60,8 +61,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       proxy: createProxy(VITE_PROXY),
     },
     build: {
-      target: 'es2015',
-      outDir: OUTPUT_DIR,
+      target: 'es2015', // 设置最终构建的浏览器兼容目标
+      outDir: OUTPUT_DIR, // 指定输出路径（相对于 项目根目录).
       terserOptions: {
         compress: {
           keep_infinity: true,
@@ -74,6 +75,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       chunkSizeWarningLimit: 2000,
     },
     define: {
+      // 定义全局常量替换方式。其中每项在开发环境下会被定义在全局，而在构建时被静态替换。
       // setting vue-i18-next
       // Suppress warning
       __INTLIFY_PROD_DEVTOOLS__: false,
@@ -82,6 +84,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 
     css: {
       preprocessorOptions: {
+        // 指定传递给 CSS 预处理器的选项。文件扩展名用作选项的键，例如：`$injectedColor: orange;`
         less: {
           modifyVars: generateModifyVars(),
           javascriptEnabled: true,
